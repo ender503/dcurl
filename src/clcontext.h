@@ -31,7 +31,7 @@ typedef struct {
 
 typedef struct {
     cl_uint num_devices;
-    cl_device_id device;
+    cl_device_id device[2];
     cl_command_queue cmdq;
     cl_mem buffer[MAX_NUM_BUFFERS];
     cl_kernel kernel[MAX_NUM_KERNEL];

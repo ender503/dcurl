@@ -26,34 +26,34 @@ static int init_cl_devices(CLContext *ctx)
 
     /* Get Device IDs */
     cl_uint platform_num_device;
-    if (clGetDeviceIDs(platform[0], CL_DEVICE_TYPE_GPU, 1, &ctx->device,
+    if (clGetDeviceIDs(platform[0], CL_DEVICE_TYPE_GPU, 2, ctx->device,
                        &platform_num_device) != CL_SUCCESS)
         return 0; /* Failed to get OpenCL Device IDs in platform */
 
     /* Create OpenCL context */
     ctx->context =
-        (cl_context) clCreateContext(NULL, 1, &ctx->device, NULL, NULL, &errno);
+        (cl_context) clCreateContext(NULL, 1, &(ctx->device[1]), NULL, NULL, &errno);
     if (errno != CL_SUCCESS)
         return 0; /* Failed to create OpenCL Context */
 
     /* Get Device Info (num_cores) */
-    if (CL_SUCCESS != clGetDeviceInfo(ctx->device, CL_DEVICE_MAX_COMPUTE_UNITS,
+    if (CL_SUCCESS != clGetDeviceInfo(ctx->device[1], CL_DEVICE_MAX_COMPUTE_UNITS,
                                       sizeof(cl_uint), &ctx->num_cores, NULL))
         return 0; /* Failed to get num_cores of GPU */
 
     /* Get Device Info (max_memory) */
-    if (CL_SUCCESS != clGetDeviceInfo(ctx->device, CL_DEVICE_MAX_MEM_ALLOC_SIZE,
+    if (CL_SUCCESS != clGetDeviceInfo(ctx->device[1], CL_DEVICE_MAX_MEM_ALLOC_SIZE,
                                       sizeof(cl_ulong), &ctx->max_memory, NULL))
         return 0; /* Failed to get Max memory of GPU */
 
     /* Get Device Info (num work group) */
     if (CL_SUCCESS !=
-        clGetDeviceInfo(ctx->device, CL_DEVICE_MAX_WORK_GROUP_SIZE,
+        clGetDeviceInfo(ctx->device[1], CL_DEVICE_MAX_WORK_GROUP_SIZE,
                         sizeof(size_t), &ctx->num_work_group, NULL))
         ctx->num_work_group = 1;
 
     /* Create Command Queue */
-    ctx->cmdq = clCreateCommandQueue(ctx->context, ctx->device, 0, &errno);
+    ctx->cmdq = clCreateCommandQueue(ctx->context, ctx->device[1], 0, &errno);
     if (errno != CL_SUCCESS)
         return 0; /* Failed to create command queue */
 
@@ -75,7 +75,7 @@ static int init_cl_program(CLContext *ctx)
         return 0; /* Failed to create OpenCL program */
 
     errno =
-        clBuildProgram(ctx->program, 1, &ctx->device, "-Werror", NULL, NULL);
+        clBuildProgram(ctx->program, 1, &(ctx->device[1]), "-Werror", NULL, NULL);
     if (CL_SUCCESS != errno)
         return 0; /* Failed to build OpenCL program */
 
