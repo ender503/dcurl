@@ -1,4 +1,6 @@
 # dcurl - Multi-threaded Curl implementation
+[![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2Fender503%2Fdcurl.svg?type=shield)](https://app.fossa.io/projects/git%2Bgithub.com%2Fender503%2Fdcurl?ref=badge_shield)
+
 Hardware-accelerated implementation for IOTA PearlDiver, which utilizes multi-threaded SIMD and GPU.
 
 # Introduction
@@ -103,3 +105,6 @@ After integrating dcurl into IRI, performance of <```attachToTangle```> is measu
 `dcurl` is freely redistributable under the MIT License.
 Use of this source code is governed by a MIT-style license that can be
 found in the `LICENSE` file.
+
+
+[![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2Fender503%2Fdcurl.svg?type=large)](https://app.fossa.io/projects/git%2Bgithub.com%2Fender503%2Fdcurl?ref=badge_large)
